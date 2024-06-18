@@ -33,6 +33,6 @@ body {
 .gameboard-pixel {
   border: 1px dashed black;
   background-color: white;
-  height: 20px;
-  width: 20px;
+  /* height: 20px;
+  width: 20px; */
 }
