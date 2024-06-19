@@ -22,7 +22,7 @@ slider.oninput = () => { sliderLabel.textContent = slider.value + "x" + slider.v
 slider.onchange = () => { refreshGameboard(slider.value); };
 colorPicker.onchange = () => { PAINT_COLOR = colorPicker.value; };
 gameboard.onmousedown = () => { MOUSE_DOWN = 1; };
-gameboard.onmouseup = () => {  MOUSE_DOWN = 0;  };
+document.body.onmouseup = () => {  MOUSE_DOWN = 0;  };
 
 // Initialize the etch-a-sketch!
 const gameboardActualSize = gameboard.clientWidth;
