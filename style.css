@@ -82,6 +82,7 @@ label {
 
 #buttons-container {
   width: 402px;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   margin-bottom: 7px;
