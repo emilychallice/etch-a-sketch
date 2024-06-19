@@ -15,6 +15,7 @@ gameboard.addEventListener("mouseover", mouseoverHandler);
 
 // Initialize the etch-a-sketch!
 const gameboardActualSize = gameboard.clientWidth;
+const gameboardBackgroundColor = gameboard.style.backgroundColor;
 let gameboardPixels = createPixels(initPixelDensity);
 
 /*///////////////////////*/
@@ -23,7 +24,7 @@ let gameboardPixels = createPixels(initPixelDensity);
 
 function clearButtonHandler() {
   gameboardPixels.forEach((pix) => {
-    pix.style.backgroundColor = "white";
+    pix.style.backgroundColor = gameboardBackgroundColor;
   });
 }
 
