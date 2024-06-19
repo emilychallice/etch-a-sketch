@@ -1,22 +1,25 @@
-const initPixelDensity = 16;
-let rainbowModeActive = 0;
+const INIT_PIXEL_DENSITY = 16;
+let RAINBOW_MODE_ON = 0;
+let PAINT_COLOR = "#000000";
 
 const gameboard = document.querySelector("#gameboard");
 const clearButton = document.querySelector("#clear-button");
 const rainbowButton = document.querySelector("#rainbow-button");
 const sliderLabel = document.querySelector("label[for='slider']");
 const slider = document.querySelector("#slider");
+const colorPicker = document.querySelector("#color-picker");
 
 clearButton.onclick = clearButtonHandler;
 rainbowButton.onclick = rainbowButtonHandler;
 slider.oninput = () => { sliderLabel.textContent = slider.value; };
 slider.onchange = () => { refreshGameboard(slider.value); };
+colorPicker.onchange = () => { PAINT_COLOR = colorPicker.value; };
 gameboard.addEventListener("mouseover", mouseoverHandler);
 
 // Initialize the etch-a-sketch!
 const gameboardActualSize = gameboard.clientWidth;
 const gameboardBackgroundColor = gameboard.style.backgroundColor;
-let gameboardPixels = createPixels(initPixelDensity);
+let gameboardPixels = createPixels(INIT_PIXEL_DENSITY);
 
 /*///////////////////////*/
 /* ----- FUNCTIONS ----- */
@@ -29,8 +32,8 @@ function clearButtonHandler() {
 }
 
 function rainbowButtonHandler() {
-  rainbowModeActive = rainbowModeActive ? 0 : 1;
-  rainbowButton.textContent = rainbowModeActive ? "monochrome mode" : "rainbow mode";
+  RAINBOW_MODE_ON = RAINBOW_MODE_ON ? 0 : 1;
+  rainbowButton.textContent = RAINBOW_MODE_ON ? "monochrome mode" : "rainbow mode";
 }
 
 // Delete all pixels and recreate the etch-a-sketch
@@ -60,7 +63,7 @@ function createPixels(pixelDensity) {
 
 function removeAllPixels() {
   if (gameboardPixels.length > 0) {
-    gameboardPixels.forEach((pixel) => { pixel.remove(); });
+    gameboardPixels.forEach((pix) => { pix.remove(); });
   }
 }
 
@@ -69,14 +72,12 @@ function mouseoverHandler(e) {
   let pixelMousedOver = document.querySelector("#" + e.target.id);
   let rgbR, rgbG, rgbB;
 
-  if (rainbowModeActive) {
+  if (RAINBOW_MODE_ON) {
     rgbR = Math.round(Math.random() * 255);
     rgbG = Math.round(Math.random() * 255);
     rgbB = Math.round(Math.random() * 255);
+    pixelMousedOver.style.backgroundColor = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
   } else {
-    rgbR = 0;
-    rgbG = 0;
-    rgbB = 0;
+    pixelMousedOver.style.backgroundColor = PAINT_COLOR;
   }
-  pixelMousedOver.style.backgroundColor = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
 }
