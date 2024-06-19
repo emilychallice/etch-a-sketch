@@ -21,6 +21,10 @@ body {
   font-family: "Tahoma", sans-serif;
 }
 
+h1 {
+  margin-top: 10px;
+}
+
 button {
   background-color: white;
   color: rgba(0, 0, 0, 0.45);
@@ -92,5 +96,9 @@ label {
 #color-picker {
   border: 1px solid rgba(0, 0, 0, 0.3);
   width: 30px;
+  /* margin-left: auto; */
+}
+
+#github-link {
   margin-left: auto;
 }
