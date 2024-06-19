@@ -1,31 +1,55 @@
+const initPixelDensity = 16;
+let rainbowModeActive = 0;
+
 const gameboard = document.querySelector("#gameboard");
 const clearButton = document.querySelector("#clear-button");
 const rainbowButton = document.querySelector("#rainbow-button");
+const sliderText = document.querySelector("#slider-text");
+const slider = document.querySelector("#slider");
 
-let rainbowModeActive = 0;
+clearButton.onclick = clearButtonHandler;
+rainbowButton.onclick = rainbowButtonHandler;
+slider.oninput = () => { sliderText.textContent = slider.value; };
+slider.onchange = () => { refreshGameboard(slider.value); };
+gameboard.addEventListener("mouseover", mouseoverHandler);
 
-const initialGameboardSize = 16;
+// Initialize the etch-a-sketch!
+const gameboardActualSize = gameboard.clientWidth;
+let gameboardPixels = createPixels(initPixelDensity);
 
-let gameboardPixels = createPixels(initialGameboardSize);
+/*///////////////////////*/
+/* ----- FUNCTIONS ----- */
+/*///////////////////////*/
 
-
-function refreshGameboard(gameboardSize) {
-  removeAllPixels();
-  return createPixels(gameboardSize);
+function clearButtonHandler() {
+  gameboardPixels.forEach((pix) => {
+    pix.style.backgroundColor = "white";
+  });
 }
 
-// Give the gameboard 16x16 pixels
-function createPixels(gameboardSize) {
+function rainbowButtonHandler() {
+  rainbowModeActive = rainbowModeActive ? 0 : 1;
+  rainbowButton.textContent = rainbowModeActive ? "Monochrome" : "Rainbow";
+}
+
+// Delete all pixels and recreate the etch-a-sketch
+function refreshGameboard(pixelDensity) {
+  removeAllPixels();
+  gameboardPixels = createPixels(pixelDensity);
+}
+
+function createPixels(pixelDensity) {
   let pixels = [];
 
-  for (let i = 0; i < gameboardSize ** 2; i++) {
+  for (let i = 0; i < pixelDensity ** 2; i++) {
     let pixel = document.createElement("div");
 
     // Give pixels a common class and unique id for later
     pixel.classList.add("gameboard-pixel");
     pixel.id = "pixel" + i;
-    pixel.style.width = 320/gameboardSize + "px";
-    pixel.style.height = 320/gameboardSize + "px";
+
+    pixel.style.width = gameboardActualSize / pixelDensity + "px";
+    pixel.style.height = gameboardActualSize / pixelDensity + "px";
 
     gameboard.appendChild(pixel);
     pixels.push(pixel);
@@ -35,12 +59,11 @@ function createPixels(gameboardSize) {
 
 function removeAllPixels() {
   if (gameboardPixels.length > 0) {
-    gameboardPixels.forEach( (pixel) => {pixel.remove();} );
+    gameboardPixels.forEach((pixel) => { pixel.remove(); });
   }
 }
 
 // Mouseover turns pixel a colour
-gameboard.addEventListener("mouseover", mouseoverHandler);
 function mouseoverHandler(e) {
   let pixelMousedOver = document.querySelector("#" + e.target.id);
   let rgbR, rgbG, rgbB;
@@ -55,24 +78,4 @@ function mouseoverHandler(e) {
     rgbB = 0;
   }
   pixelMousedOver.style.backgroundColor = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
-}
-
-// Clear button
-clearButton.onclick = clearGameBoard;
-function clearGameBoard() {
-  gameboardPixels.forEach((pix) => {
-    pix.style.backgroundColor = "white";
-  });
-}
-
-// Rainbow button
-rainbowButton.onclick = rainbowButtonClicked;
-function rainbowButtonClicked() {
-  if (rainbowModeActive) {
-    rainbowModeActive = 0;
-    rainbowButton.textContent = "Rainbow";
-  } else {
-    rainbowModeActive = 1;
-    rainbowButton.textContent = "Monochrome";
-  }
 }
