@@ -119,6 +119,4 @@ function mouseoverHandler(e) {
       pixelMousedOver.style.opacity = 0;
     }
   }
-
-
 }
