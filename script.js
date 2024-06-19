@@ -1,12 +1,15 @@
 const INIT_PIXEL_DENSITY = 30;
 let RAINBOW_MODE_ON = 0;
 let ALPHA_MODE_ON = 0;
+let ERASER_MODE_ON = 0;
 let PAINT_COLOR = "#000000";
+let MOUSE_DOWN = 0;
 
 const gameboard = document.querySelector("#gameboard");
 const clearButton = document.querySelector("#clear-button");
 const rainbowButton = document.querySelector("#rainbow-button");
 const alphaButton = document.querySelector("#alpha-button");
+const eraserButton = document.querySelector("#eraser-button");
 const sliderLabel = document.querySelector("label[for='slider']");
 const slider = document.querySelector("#slider");
 const colorPicker = document.querySelector("#color-picker");
@@ -14,10 +17,12 @@ const colorPicker = document.querySelector("#color-picker");
 clearButton.onclick = clearButtonHandler;
 rainbowButton.onclick = rainbowButtonHandler;
 alphaButton.onclick = alphaButtonHandler;
+eraserButton.onclick = eraserButtonHandler;
 slider.oninput = () => { sliderLabel.textContent = slider.value + "x" + slider.value; };
 slider.onchange = () => { refreshGameboard(slider.value); };
 colorPicker.onchange = () => { PAINT_COLOR = colorPicker.value; };
-
+gameboard.onmousedown = () => { MOUSE_DOWN = 1; };
+gameboard.onmouseup = () => {  MOUSE_DOWN = 0;  };
 
 // Initialize the etch-a-sketch!
 const gameboardActualSize = gameboard.clientWidth;
@@ -44,6 +49,11 @@ function rainbowButtonHandler() {
 function alphaButtonHandler() {
   ALPHA_MODE_ON = ALPHA_MODE_ON ? 0 : 1;
   alphaButton.classList.toggle("active");
+}
+
+function eraserButtonHandler() {
+  ERASER_MODE_ON = ERASER_MODE_ON ? 0 : 1;
+  eraserButton.classList.toggle("active");
 }
 
 // Delete all pixels and recreate the etch-a-sketch
@@ -83,22 +93,32 @@ function mouseoverHandler(e) {
   let pixelMousedOver = document.querySelector("#" + e.target.id);
   let rgbR, rgbG, rgbB;
 
-  if (ALPHA_MODE_ON) {
-    if (!pixelMousedOver.style.opacity) {
-      pixelMousedOver.style.opacity = 0.2;
-    } else if (pixelMousedOver.style.opacity < 1) {
-      pixelMousedOver.style.opacity = +pixelMousedOver.style.opacity + 0.2;
+  if (MOUSE_DOWN) {
+
+    if (ALPHA_MODE_ON && !ERASER_MODE_ON) {
+      if (!pixelMousedOver.style.opacity) {
+        pixelMousedOver.style.opacity = 0.2;
+      } else if (pixelMousedOver.style.opacity < 1) {
+        pixelMousedOver.style.opacity = +pixelMousedOver.style.opacity + 0.2;
+      }
+    } else {
+      pixelMousedOver.style.opacity = 1;
     }
-  } else {
-    pixelMousedOver.style.opacity = 1;
+  
+    if (RAINBOW_MODE_ON && !ERASER_MODE_ON) {
+      rgbR = Math.round(Math.random() * 255);
+      rgbG = Math.round(Math.random() * 255);
+      rgbB = Math.round(Math.random() * 255);
+      pixelMousedOver.style.backgroundColor = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
+    } else {
+      pixelMousedOver.style.backgroundColor = PAINT_COLOR;
+    }
+  
+    if (ERASER_MODE_ON) {
+      pixelMousedOver.style.backgroundColor = gameboardBackgroundColor;
+      pixelMousedOver.style.opacity = 0;
+    }
   }
 
-  if (RAINBOW_MODE_ON) {
-    rgbR = Math.round(Math.random() * 255);
-    rgbG = Math.round(Math.random() * 255);
-    rgbB = Math.round(Math.random() * 255);
-    pixelMousedOver.style.backgroundColor = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
-  } else {
-    pixelMousedOver.style.backgroundColor = PAINT_COLOR;
-  }
+
 }

@@ -45,7 +45,8 @@ button {
   padding: 6px 11px;
 }
 
-#alpha-button.active {
+#alpha-button.active,
+#eraser-button.active {
   background: #000c;
   color: white;
 }
