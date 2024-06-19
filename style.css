@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -20,17 +14,70 @@ body {
   flex-direction: column;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Tahoma", sans-serif;
+}
+
+button {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.45);
+  padding: 5px 10px;
+  border-radius: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 11px;
+  font-weight: bold;
+  /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); */
+  cursor: pointer;
+}
+
+button:active {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+label {
+  color: rgb(126, 126, 126);
+  font-size: 11px;
+  font-weight: bold;
+}
+
 #gameboard {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 642px;
-  height: 642px;
-  border: 1px solid black;
+  width: 402px;
+  height: 402px;
+  border: 1px solid rgb(190, 190, 190);
   background-color: white;
+  box-shadow: 1px 1px 3px rgb(190, 190, 190);
+  margin-bottom: 10px;
+  cursor: crosshair;
 }
 
 .gameboard-pixel {
   background-color: white;
   opacity: 1;
+}
+
+#inputs-container {
+  width: 402px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#buttons-container {
+  gap: 10px;
+}
+
+#slider-container {
+  align-items: center;
+  gap: 5px;
+}
+
+#color-picker {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: 30px;
 }

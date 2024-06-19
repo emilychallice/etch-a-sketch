@@ -4,12 +4,12 @@ let rainbowModeActive = 0;
 const gameboard = document.querySelector("#gameboard");
 const clearButton = document.querySelector("#clear-button");
 const rainbowButton = document.querySelector("#rainbow-button");
-const sliderText = document.querySelector("#slider-text");
+const sliderLabel = document.querySelector("label[for='slider']");
 const slider = document.querySelector("#slider");
 
 clearButton.onclick = clearButtonHandler;
 rainbowButton.onclick = rainbowButtonHandler;
-slider.oninput = () => { sliderText.textContent = slider.value; };
+slider.oninput = () => { sliderLabel.textContent = slider.value; };
 slider.onchange = () => { refreshGameboard(slider.value); };
 gameboard.addEventListener("mouseover", mouseoverHandler);
 
@@ -30,7 +30,7 @@ function clearButtonHandler() {
 
 function rainbowButtonHandler() {
   rainbowModeActive = rainbowModeActive ? 0 : 1;
-  rainbowButton.textContent = rainbowModeActive ? "Monochrome" : "Rainbow";
+  rainbowButton.textContent = rainbowModeActive ? "monochrome mode" : "rainbow mode";
 }
 
 // Delete all pixels and recreate the etch-a-sketch
