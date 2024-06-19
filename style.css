@@ -38,6 +38,16 @@ button:active {
   color: white;
 }
 
+#rainbow-button.active {
+  background: linear-gradient(90deg, rgba(255, 0, 0, 0.7) 0%,
+            rgba(0, 22, 255, 0.7) 50%, rgba(0, 255, 8, 0.7) 100%);
+  color: white;
+  /* border: 1px solid rgba(0, 0, 0, 0.5); */
+  /* border: 1px solid white; */
+  border: none;
+  padding: 6px 11px;
+}
+
 label {
   color: rgb(126, 126, 126);
   font-size: 11px;

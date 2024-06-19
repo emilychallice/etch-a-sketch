@@ -33,7 +33,7 @@ function clearButtonHandler() {
 
 function rainbowButtonHandler() {
   RAINBOW_MODE_ON = RAINBOW_MODE_ON ? 0 : 1;
-  rainbowButton.textContent = RAINBOW_MODE_ON ? "monochrome mode" : "rainbow mode";
+  rainbowButton.classList.toggle("active");
 }
 
 // Delete all pixels and recreate the etch-a-sketch
