@@ -48,6 +48,11 @@ button:active {
   padding: 6px 11px;
 }
 
+#alpha-button.active {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
 label {
   color: rgb(126, 126, 126);
   font-size: 11px;
@@ -69,20 +74,17 @@ label {
 
 .gameboard-pixel {
   background-color: white;
-  opacity: 1;
-}
-
-#inputs-container {
-  width: 402px;
-  align-items: center;
-  justify-content: space-between;
 }
 
 #buttons-container {
+  width: 402px;
+  align-items: center;
   gap: 10px;
+  margin-bottom: 7px;
 }
 
 #slider-container {
+  width: 402px;
   align-items: center;
   gap: 5px;
 }
@@ -90,4 +92,5 @@ label {
 #color-picker {
   border: 1px solid rgba(0, 0, 0, 0.3);
   width: 30px;
+  margin-left: auto;
 }
