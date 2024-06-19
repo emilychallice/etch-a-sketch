@@ -30,30 +30,23 @@ button {
   color: rgba(0, 0, 0, 0.45);
   padding: 5px 10px;
   border-radius: 25px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid #0005;
   font-size: 11px;
   font-weight: bold;
-  /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); */
+  /* box-shadow: 1px 1px 3px #0005; */
   cursor: pointer;
-}
-
-button:active {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
 }
 
 #rainbow-button.active {
   background: linear-gradient(90deg, rgba(255, 0, 0, 0.7) 0%,
-            rgba(0, 22, 255, 0.7) 50%, rgba(0, 255, 8, 0.7) 100%);
+            rgba(0, 0, 255, 0.7) 50%, rgba(0, 255, 0, 0.7) 100%);
   color: white;
-  /* border: 1px solid rgba(0, 0, 0, 0.5); */
-  /* border: 1px solid white; */
   border: none;
   padding: 6px 11px;
 }
 
 #alpha-button.active {
-  background: rgba(0, 0, 0, 0.8);
+  background: #000c;
   color: white;
 }
 
@@ -69,9 +62,9 @@ label {
   align-items: center;
   width: 402px;
   height: 402px;
-  border: 1px solid rgb(190, 190, 190);
+  border: 1px solid #0005;
   background-color: white;
-  box-shadow: 1px 1px 3px rgb(190, 190, 190);
+  box-shadow: 1px 1px 3px #0005;
   margin-bottom: 10px;
   cursor: crosshair;
 }
@@ -95,9 +88,7 @@ label {
 }
 
 #color-picker {
-  border: 1px solid rgba(0, 0, 0, 0.3);
   width: 30px;
-  /* margin-left: auto; */
 }
 
 #github-link {
