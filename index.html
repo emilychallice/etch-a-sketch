@@ -14,19 +14,22 @@
   <div id="gameboard" class="flex-row">
   </div>
 
-  <div id="inputs-container" class="flex-row">
+  <div id="buttons-container" class="flex-row">
     <div id="buttons-container" class="flex-row">
       <button id="clear-button"> clear </button>
+      <button id="alpha-button"> alpha mode </button>
       <button id="rainbow-button"> rainbow mode </button>
 
       <input type="color" id="color-picker">
-    </div>
 
-    <div id="slider-container" class="flex-row">
-      <input type="range" min="2" max="100" value="16" id="slider">
-      <label for="slider"> 16 </label>
     </div>
   </div>
+  
 
+  <div id="slider-container" class="flex-row">
+    <input type="range" min="2" max="100" value="16" id="slider">
+    <label for="slider"> 16x16 </label>
+  </div>
+  
 </body>
 </html>

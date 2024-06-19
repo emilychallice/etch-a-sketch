@@ -1,25 +1,29 @@
 const INIT_PIXEL_DENSITY = 16;
 let RAINBOW_MODE_ON = 0;
+let ALPHA_MODE_ON = 0;
 let PAINT_COLOR = "#000000";
 
 const gameboard = document.querySelector("#gameboard");
 const clearButton = document.querySelector("#clear-button");
 const rainbowButton = document.querySelector("#rainbow-button");
+const alphaButton = document.querySelector("#alpha-button");
 const sliderLabel = document.querySelector("label[for='slider']");
 const slider = document.querySelector("#slider");
 const colorPicker = document.querySelector("#color-picker");
 
 clearButton.onclick = clearButtonHandler;
 rainbowButton.onclick = rainbowButtonHandler;
-slider.oninput = () => { sliderLabel.textContent = slider.value; };
+alphaButton.onclick = alphaButtonHandler;
+slider.oninput = () => { sliderLabel.textContent = slider.value + "x" + slider.value; };
 slider.onchange = () => { refreshGameboard(slider.value); };
 colorPicker.onchange = () => { PAINT_COLOR = colorPicker.value; };
-gameboard.addEventListener("mouseover", mouseoverHandler);
+
 
 // Initialize the etch-a-sketch!
 const gameboardActualSize = gameboard.clientWidth;
 const gameboardBackgroundColor = gameboard.style.backgroundColor;
 let gameboardPixels = createPixels(INIT_PIXEL_DENSITY);
+
 
 /*///////////////////////*/
 /* ----- FUNCTIONS ----- */
@@ -28,12 +32,18 @@ let gameboardPixels = createPixels(INIT_PIXEL_DENSITY);
 function clearButtonHandler() {
   gameboardPixels.forEach((pix) => {
     pix.style.backgroundColor = gameboardBackgroundColor;
+    pix.style.opacity = 0; // If ALPHA_MODE_ON is 0, opacity gets set to 1 in mouseoverHandler
   });
 }
 
 function rainbowButtonHandler() {
   RAINBOW_MODE_ON = RAINBOW_MODE_ON ? 0 : 1;
   rainbowButton.classList.toggle("active");
+}
+
+function alphaButtonHandler() {
+  ALPHA_MODE_ON = ALPHA_MODE_ON ? 0 : 1;
+  alphaButton.classList.toggle("active");
 }
 
 // Delete all pixels and recreate the etch-a-sketch
@@ -57,6 +67,7 @@ function createPixels(pixelDensity) {
 
     gameboard.appendChild(pixel);
     pixels.push(pixel);
+    pixel.onmouseover = mouseoverHandler;
   }
   return pixels;
 }
@@ -71,6 +82,16 @@ function removeAllPixels() {
 function mouseoverHandler(e) {
   let pixelMousedOver = document.querySelector("#" + e.target.id);
   let rgbR, rgbG, rgbB;
+
+  if (ALPHA_MODE_ON) {
+    if (!pixelMousedOver.style.opacity) {
+      pixelMousedOver.style.opacity = 0.2;
+    } else if (pixelMousedOver.style.opacity < 1) {
+      pixelMousedOver.style.opacity = +pixelMousedOver.style.opacity + 0.2;
+    }
+  } else {
+    pixelMousedOver.style.opacity = 1;
+  }
 
   if (RAINBOW_MODE_ON) {
     rgbR = Math.round(Math.random() * 255);
