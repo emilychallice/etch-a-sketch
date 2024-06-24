@@ -22,13 +22,12 @@ slider.oninput = () => { sliderLabel.textContent = slider.value + "x" + slider.v
 slider.onchange = () => { refreshGameboard(slider.value); };
 colorPicker.onchange = () => { PAINT_COLOR = colorPicker.value; };
 gameboard.onmousedown = () => { MOUSE_DOWN = 1; };
-document.body.onmouseup = () => {  MOUSE_DOWN = 0;  };
+document.body.onmouseup = () => { MOUSE_DOWN = 0; };
 
 // Initialize the etch-a-sketch!
 const gameboardActualSize = gameboard.clientWidth;
 const gameboardBackgroundColor = gameboard.style.backgroundColor;
 let gameboardPixels = createPixels(INIT_PIXEL_DENSITY);
-
 
 /*///////////////////////*/
 /* ----- FUNCTIONS ----- */
@@ -83,40 +82,40 @@ function createPixels(pixelDensity) {
 }
 
 function removeAllPixels() {
-  if (gameboardPixels.length > 0) {
-    gameboardPixels.forEach((pix) => { pix.remove(); });
-  }
+  gameboardPixels.forEach((pix) => { pix.remove(); });
 }
 
 // Mouseover turns pixel a colour
 function mouseoverHandler(e) {
-  let pixelMousedOver = document.querySelector("#" + e.target.id);
-  let rgbR, rgbG, rgbB;
-
   if (MOUSE_DOWN) {
+    let pixelMousedOver = document.querySelector("#" + e.target.id);
+    let rgbR, rgbG, rgbB;
 
-    if (ALPHA_MODE_ON && !ERASER_MODE_ON) {
-      if (!pixelMousedOver.style.opacity) {
-        pixelMousedOver.style.opacity = 0.2;
-      } else if (pixelMousedOver.style.opacity < 1) {
-        pixelMousedOver.style.opacity = +pixelMousedOver.style.opacity + 0.2;
-      }
-    } else {
-      pixelMousedOver.style.opacity = 1;
-    }
-  
-    if (RAINBOW_MODE_ON && !ERASER_MODE_ON) {
-      rgbR = Math.round(Math.random() * 255);
-      rgbG = Math.round(Math.random() * 255);
-      rgbB = Math.round(Math.random() * 255);
-      pixelMousedOver.style.backgroundColor = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
-    } else {
-      pixelMousedOver.style.backgroundColor = PAINT_COLOR;
-    }
-  
     if (ERASER_MODE_ON) {
       pixelMousedOver.style.backgroundColor = gameboardBackgroundColor;
       pixelMousedOver.style.opacity = 0;
     }
+    
+    else {
+      if (ALPHA_MODE_ON) {
+        if (!pixelMousedOver.style.opacity) {
+          pixelMousedOver.style.opacity = 0.2;
+        } else if (pixelMousedOver.style.opacity < 1) {
+          pixelMousedOver.style.opacity = +pixelMousedOver.style.opacity + 0.2;
+        }
+      } else {
+        pixelMousedOver.style.opacity = 1;
+      }
+
+      if (RAINBOW_MODE_ON) {
+        rgbR = Math.round(Math.random() * 255);
+        rgbG = Math.round(Math.random() * 255);
+        rgbB = Math.round(Math.random() * 255);
+        pixelMousedOver.style.backgroundColor = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
+      } else {
+        pixelMousedOver.style.backgroundColor = PAINT_COLOR;
+      }
+    }
+
   }
 }
