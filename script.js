@@ -77,6 +77,7 @@ function createPixels(pixelDensity) {
     gameboard.appendChild(pixel);
     pixels.push(pixel);
     pixel.onmouseover = mouseoverHandler;
+    pixel.ondragstart = () => { return false; };
   }
   return pixels;
 }
